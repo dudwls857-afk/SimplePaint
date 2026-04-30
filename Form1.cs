@@ -33,6 +33,7 @@ namespace SimplePaint
         private Color currentColor = Color.Black;      // 현재 색상
         private int currentLineWidth = 2;              // 현재 선 두께
 
+        float scale = 1.0f;
         public Form1()
         {
             InitializeComponent();
@@ -234,5 +235,69 @@ namespace SimplePaint
                 }
             }
         }
+
+        private void btnOpenFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openDialog = new OpenFileDialog();
+            openDialog.Filter = "이미지 파일 (*.png;*.jpg;*.bmp)|*.png;*.jpg;*.bmp";
+
+            if (openDialog.ShowDialog() == DialogResult.OK)
+            {
+                Image img = Image.FromFile(openDialog.FileName);
+
+                // ⭐ 핵심: 이미지 → canvasBitmap에 복사
+                canvasBitmap = new Bitmap(img);
+                canvasGraphics = Graphics.FromImage(canvasBitmap);
+
+                ApplyZoom();          // 크기 반영
+                picCanvas.Invalidate(); // 다시 그리기
+            }
+        }
+        
+
+        private void btnZoomIn_Click(object sender, EventArgs e)
+        {
+            scale += 0.1f;
+            ApplyZoom();
+        }
+
+        private void btnZoomOut_Click(object sender, EventArgs e)
+        {
+            scale -= 0.1f;
+
+            if (scale < 0.1f) // 너무 작아지는 것 방지
+                scale = 0.1f;
+
+            ApplyZoom();
+        }
+        private void ApplyZoom()
+        {
+            if (canvasBitmap == null) return;
+
+            panel1.AutoScrollMinSize = new Size(
+                (int)(canvasBitmap.Width * scale),
+                (int)(canvasBitmap.Height * scale)
+            );
+
+            picCanvas.Invalidate();
+        }
+
+        private void picCanvas_Paint_1(object sender, PaintEventArgs e)
+        {
+            if (canvasBitmap == null) return;
+
+            e.Graphics.Clear(Color.White);
+
+            e.Graphics.TranslateTransform(
+                panel1.AutoScrollPosition.X,
+                panel1.AutoScrollPosition.Y
+            );
+
+            e.Graphics.ScaleTransform(scale, scale);
+
+            // ⭐ 항상 여기서만 그림 보여줌
+            e.Graphics.DrawImage(canvasBitmap, 0, 0);
+        }
     }
 }
+
