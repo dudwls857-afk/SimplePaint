@@ -67,6 +67,8 @@ namespace SimplePaint
             trbLineWidth.Value = 5;
             trbLineWidth.ValueChanged += trbLineWidth_ValueChanged;
 
+
+
         }
 
         private void PicCanvas_MouseDown(object sender, MouseEventArgs e)
@@ -173,9 +175,9 @@ namespace SimplePaint
         {
             currentLineWidth = trbLineWidth.Value;
         }
-        
-        
-        
+
+
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -185,22 +187,52 @@ namespace SimplePaint
 
 
 
-      
 
-        
+
+
 
         private void lblAppName_Click(object sender, EventArgs e)
         {
 
         }
 
-       
+
 
         private void picCanvas_Click(object sender, EventArgs e)
         {
 
         }
 
-       
+        private void btnSaveFile_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+
+            saveDialog.Filter = "PNG 파일 (*.png)|*.png|JPG 파일 (*.jpg)|*.jpg|BMP 파일 (*.bmp)|*.bmp";
+            saveDialog.Title = "이미지 저장";
+            saveDialog.FileName = "drawing";
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveDialog.FileName;
+
+                try
+                {
+                    System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Png;
+
+                    if (filePath.ToLower().EndsWith(".jpg"))
+                        format = System.Drawing.Imaging.ImageFormat.Jpeg;
+                    else if (filePath.ToLower().EndsWith(".bmp"))
+                        format = System.Drawing.Imaging.ImageFormat.Bmp;
+
+                    canvasBitmap.Save(filePath, format);
+
+                    MessageBox.Show("저장 완료!");
+                }
+                catch
+                {
+                    MessageBox.Show("저장 실패!");
+                }
+            }
+        }
     }
 }
