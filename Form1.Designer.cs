@@ -1,6 +1,6 @@
 ﻿namespace SimplePaint
 {
-    partial class Name
+    partial class Form1
     {
         /// <summary>
         ///  Required designer variable.
@@ -39,12 +39,12 @@
             trbLineWidth = new TrackBar();
             btnOpenFile = new Button();
             btnSaveFile = new Button();
-            pictureBox1 = new PictureBox();
+            picCanvas = new PictureBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trbLineWidth).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picCanvas).BeginInit();
             SuspendLayout();
             // 
             // lblAppName
@@ -82,6 +82,7 @@
             btnCircle.Text = "원";
             btnCircle.TextAlign = ContentAlignment.BottomCenter;
             btnCircle.UseVisualStyleBackColor = true;
+            btnCircle.Click += btnCircle_Click;
             // 
             // btnLine
             // 
@@ -144,9 +145,11 @@
             // trbLineWidth
             // 
             trbLineWidth.Location = new Point(41, 74);
+            trbLineWidth.Minimum = 1;
             trbLineWidth.Name = "trbLineWidth";
             trbLineWidth.Size = new Size(157, 45);
             trbLineWidth.TabIndex = 0;
+            trbLineWidth.Value = 1;
             // 
             // btnOpenFile
             // 
@@ -170,29 +173,30 @@
             btnSaveFile.Text = "저장";
             btnSaveFile.UseVisualStyleBackColor = false;
             // 
-            // pictureBox1
+            // picCanvas
             // 
-            pictureBox1.BackColor = Color.White;
-            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox1.Location = new Point(12, 253);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(1232, 540);
-            pictureBox1.TabIndex = 6;
-            pictureBox1.TabStop = false;
+            picCanvas.BackColor = Color.White;
+            picCanvas.BorderStyle = BorderStyle.FixedSingle;
+            picCanvas.Location = new Point(12, 255);
+            picCanvas.Name = "picCanvas";
+            picCanvas.Size = new Size(1232, 540);
+            picCanvas.TabIndex = 9;
+            picCanvas.TabStop = false;
+            picCanvas.Click += picCanvas_Click;
             // 
-            // Name
+            // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1247, 805);
-            Controls.Add(pictureBox1);
+            Controls.Add(picCanvas);
             Controls.Add(btnSaveFile);
             Controls.Add(btnOpenFile);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(lblAppName);
-            Name = "Name";
+            Name = "Form1";
             Text = "Simple Paint v1.0";
             Load += Form1_Load;
             groupBox1.ResumeLayout(false);
@@ -200,7 +204,7 @@
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trbLineWidth).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picCanvas).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -218,6 +222,6 @@
         private Button btnOpenFile;
         private Button btnSaveFile;
         private Button btnCircle;
-        private PictureBox pictureBox1;
+        private PictureBox picCanvas;
     }
 }
