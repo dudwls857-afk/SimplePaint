@@ -1,10 +1,39 @@
 namespace SimplePaint
 {
-    public partial class Form1 : Form
+    public partial class Name : Form
     {
-        public Form1()
+        public Name()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        
+
+      
+
+        private void cmbColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRectangle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblAppName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLine_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
